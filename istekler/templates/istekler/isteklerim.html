@@ -1,0 +1,57 @@
+{% extends 'istekler/base.html' %}
+
+{% block content %}
+	
+	<h2>İsteklerim</h2>
+	<br/>
+
+	{% for event in events %}
+
+		<div class="card">
+  <div class="card-header">
+    {{ event }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Hastane: {{ event.hastane_adi }}</h5>
+    <p class="card-text">
+    	<ul>
+            <li>Tıbbi malzeme / İlaç / Aşı: {{ event.tibbi_malzeme_ilac_asi }}</li>
+            <li>Kişisel Gereksinimler: {{ event.kisisel_gereksinimler }}</li>
+            <li>Hastanenin Altyapı Gereksinimleri / Sorunları: {{ event.hastanenin_altyapi_gereksinimleri_sorunlari }}</li>
+            <li>Hastanede Sağlık Çalışanı Gereksinimi: {{ event.hastanede_saglik_calisani_gereksinimi }}</li>
+            <li>Temel Gereksinimler: {{ event.temel_gereksinimler }}</li>
+            <li>Ailevi Gereksinimler: {{ event.ailevi_gereksinimler }}</li>
+            <li>Diğer Gereksinimler: {{ event.diger_gereksinimler }}</li>
+            <li>Mesaj Kutusu: {{ event.mesaj_kutusu }}</li>
+
+	</ul>
+
+    </p>
+  </div>
+  {% if user.is_authenticated %}
+    {% if user == istek.kullanici_adi %}
+      <div class="card-footer text-muted">
+        
+        <a href="{% url 'istegi-guncelle' event.id %}" class="btn btn-outline-secondary btn-sm">Istegi Guncelle</a>
+
+        <a href="{% url 'istegi-sil' event.id %}" class="btn btn-outline-danger btn-sm">Istegi Sil</a>
+        
+      </div>
+    {% endif %}  
+  {% endif %}
+</div>
+
+
+
+
+
+	<br/><br/>
+
+
+		
+	{% endfor %}
+
+	
+
+
+{% endblock %}

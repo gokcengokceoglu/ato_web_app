@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">ATO</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' '2021' 'March' %}">Calendar</a>
+          </li> -->
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Taleplerim
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+              <li><a class="dropdown-item" href="{% url 'istek-ekle' %}">İstek Ekle</a></li>
+  
+              <li><a class="dropdown-item" href="{% url 'isteklerim' %}">İsteklerim</a></li>
+              <li><a class="dropdown-item" href="{% url 'istek-ara' %}">İstek Ara</a></li>
+  
+              
+            </ul>
+          </li>
+        
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Hastaneler
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+              <li><a class="dropdown-item" href="{% url 'hastane-ekle' %}">Hastane Ekle</a></li>
+  
+              <!-- <li><a class="dropdown-item" href="{% url 'hastane-ara' %}">Hastane Ara</a></li> -->
+  
+              
+            </ul>
+          </li>
+        
+        
+      
+  
+        {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_approval' %}">Admin</a>
+          </li>
+        {%endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register_user' %}">Register</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+        {% endif %}
+          {% csrf_token %}
+  
+          <!-- <input class="form-control me-2" type="search" placeholder="Hastane Ara" aria-label="Search" name="searched"> -->
+          <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>

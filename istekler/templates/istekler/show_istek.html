@@ -1,0 +1,61 @@
+{% extends 'istekler/base.html' %}
+
+{% block content %}
+	
+<h1>Istek Goster</h1>
+
+<br/>
+	
+{% if istek.approved %}
+<div class="card">
+  <div class="card-header">
+    {{ istek }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Hastane: {{ istek.Hastane }}</h5>
+    <p class="card-text">
+    	<ul>
+<li>tibbi_malzeme_ilac_asi: {{ istek.tibbi_malzeme_ilac_asi }}</li>
+<li>kisisel_gereksinimler: {{ istek.kisisel_gereksinimler }}</li>
+<li>hastanenin_altyapi_gereksinimleri_sorunlari: {{ istek.hastanenin_altyapi_gereksinimleri_sorunlari}}</li>
+<li>hastanede_saglik_calisani_gereksinimi: {{ istek.hastanede_saglik_calisani_gereksinimi }}</li>
+<li>temel_gereksinimler: {{ istek.temel_gereksinimler }}</li>
+<li>ailevi_gereksinimler: {{ istek.ailevi_gereksinimler }}</li>
+<li>diger_gereksinimler: {{ istek.diger_gereksinimler }}</li>
+<li>mesaj_kutusu: {{ istek.mesaj_kutusu }}</li>
+<!-- <li>Approved: {{ event.approved }}</li>
+	<li>Attendees:<br/>
+	{% for user in event.attendees.all %}
+{{ user }}<br/>
+  
+  {% endfor %}
+
+	</li> -->
+	</ul>
+
+
+
+    </p>
+  </div>
+  {% if user.is_authenticated %}
+    {% if user == istek.kullanici_adi %}
+      <div class="card-footer text-muted">
+        
+        <a href="{% url 'update-istek' istek.id %}" class="btn btn-outline-secondary btn-sm">Update Istek</a>
+
+        <a href="{% url 'delete-istek' istek.id %}" class="btn btn-outline-danger btn-sm">Delete Istek</a>
+        
+      </div>
+    {% endif %}  
+  {% endif %}
+</div>
+
+
+
+<br/><br/>
+{% endif %}
+
+
+	
+
+{% endblock %}

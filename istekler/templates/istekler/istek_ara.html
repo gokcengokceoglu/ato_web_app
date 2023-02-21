@@ -1,0 +1,79 @@
+{% extends 'istekler/base.html' %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-header">
+    {% if searched %}
+		You Searched For {{ searched }}
+	{% else %}
+		Search Events...
+	{% endif %}
+  </div>
+  <div class="card-body">
+
+<form method=POST action="{% url 'istek-ara' %}">
+        {% csrf_token %}
+
+        <input class="form-control me-2" type="search" placeholder="İstek Ara" aria-label="Search" name="searched">
+        <br/>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </form>
+
+</div></div>
+
+	
+		<br/>
+		{% for event in events %}
+			<div class="card">
+  <div class="card-header">
+    {{ event }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Hastane: {{ event.hastane_adi }}</h5>
+    <p class="card-text">
+    	<ul>
+
+<li>tibbi_malzeme_ilac_asi: {{ event.tibbi_malzeme_ilac_asi }}</li>
+<li>kisisel_gereksinimler: {{ event.kisisel_gereksinimler }}</li>
+<li>kullanici: {{ event.kullanici_adi }}</li>
+<li>hastanenin_altyapi_gereksinimleri_sorunlari: {{ event.hastanenin_altyapi_gereksinimleri_sorunlari }}</li>
+<li>hastanede_saglik_calisani_gereksinimi: {{ event.hastanede_saglik_calisani_gereksinimi }}</li>
+<li>temel_gereksinimler: {{ event.temel_gereksinimler }}</li>
+<li>ailevi_gereksinimler: {{ event.ailevi_gereksinimler }}</li>
+<li>diger_gereksinimler: {{ event.diger_gereksinimler }}</li>
+<li>mesaj_kutusu: {{ event.mesaj_kutusu }}</li>
+<li>tibbi_malzeme_ilac_asi: {{ event.tibbi_malzeme_ilac_asi }}</li>
+	</ul>
+
+
+
+    </p>
+  </div>
+  {% if user.is_authenticated %}
+    {% if user == event.kullanici_adi %}
+      <div class="card-footer text-muted">
+        
+        <a href="{% url 'istek_guncelle' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+
+        <a href="{% url 'istek_sil' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+        
+      </div>
+    {% endif %}  
+  {% endif %}
+</div>
+
+
+
+
+
+	<br/><br/>
+		{% endfor %}
+	
+
+
+	
+
+	
+	
+{% endblock %}
